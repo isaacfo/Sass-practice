@@ -1,0 +1,186 @@
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    /* slide in from left */
+    transform: translateX(-10rem); }
+  80% {
+    /* slightly moves over to right beyond final position */
+    transform: translateX(1rem); }
+  100% {
+    opacity: 1;
+    /* final position after animation */
+    transform: translate(0); } }
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    /* slide in from left */
+    transform: translateX(10rem); }
+  80% {
+    /* slightly moves over to right beyond final position */
+    transform: translateX(-1rem); }
+  100% {
+    opacity: 1;
+    /* final position after animation */
+    transform: translate(0); } }
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    /* slide in from left */
+    transform: translateY(3rem); }
+  100% {
+    opacity: 1;
+    /* final position after animation */
+    transform: translate(0); } }
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+/* setting this root font size so rem conversion can be easier for the rest of the px sizes found in css, applies to non font px too. 1 rem = 10px in this case */
+/* 16px is the defualt font-size in browsers, to get what we want which is 10px we do 10/16 = .625 = 62.5% */
+html {
+  font-size: 62.5%; }
+
+body {
+  box-sizing: border-box; }
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  /* part behind element is hidden so animation/shaky effect doesn't affect it  */
+  backface-visibility: hidden;
+  margin-bottom: 6rem; }
+  .heading-primary--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /* adds certain change of speeds to animation  */
+    animation-timing-function: ease-out;
+    /* animation will occur x amount of times specified */
+    /* animation-iteration-count: 3; */
+    /* before animation starts it will wait cetain amount before starting up */
+    /* animation-delay: 3s; */ }
+  .heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.75rem;
+    /* short hand */
+    animation: moveInRight 1s ease-out; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 1.7;
+  color: #777;
+  padding: 3rem; }
+
+.btn {
+  /* to add effect to buttom of zooming out by adding another layer behind it  */ }
+  .btn:link, .btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    /* to give elements padding and heights etc, needs the block effect for that */
+    display: inline-block;
+    border-radius: 10rem;
+    /* makes the transform more fluid, transition is another way of animation that doesnt use keyframes */
+    transition: all 0.2s;
+    position: relative;
+    font-size: 1.6rem; }
+  .btn:hover {
+    transform: translateY(-3px);
+    /* x, y, blur, rgba for color and opacity  */
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+    .btn:hover::after {
+      /* scale increases size */
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0; }
+  .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+  .btn--white {
+    background-color: #fff;
+    color: #777; }
+    .btn--white::after {
+      background-color: #fff; }
+  .btn::after {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s; }
+  .btn--animated {
+    /* when page is loaded, button moves up into place */
+    animation: moveInBottom 0.5s ease-out 0.75s;
+    /* cause button to disappear and then the animation happens, applies styles of 0% of keyframes before animation happens */
+    animation-fill-mode: backwards; }
+
+.header {
+  /* fill 95% of the viewport leaving some space sine its 95vh */
+  height: 95vh;
+  background-image: linear-gradient(to right bottom, rgba(85, 197, 122, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero.jpg);
+  /* will try to fit/adapt the image into the box/viewport  */
+  background-size: cover;
+  /* top of image always stays the same/always in view */
+  background-position: top;
+  /* for cilpping half of the image in the given angle */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  position: relative; }
+  .header__logo-box {
+    /* will reference the position of the parent because it is relative, that's where the px start */
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
+  .header__logo {
+    /* width is figured out by browser */
+    height: 3.5rem; }
+  .header__text-box {
+    /* all listed below is to move to middle */
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; }
+
+.row {
+  max-width: 114rem;
+  background-color: #eee;
+  margin: 0 auto; }
+  .row:not(:last-child) {
+    margin-bottom: 8rem; }
+  .row::after {
+    content: '';
+    display: table;
+    clear: both; }
+  .row [class^='col-'] {
+    background-color: orangered;
+    float: left; }
+    .row [class^='col-']:not(:last-child) {
+      margin-right: 6rem; }
+  .row .col-1-of-2 {
+    width: calc((100% - 6rem) / 2); }
+  .row .col-1-of-3 {
+    width: calc((100% - 2 * 6rem) / 3); }
+  .row .col-1-of-4 {
+    width: calc((100% - 3 * 6rem) / 4); }
+  .row .col-2-of-3 {
+    width: calc( 2 * ((100% - 2 * 6rem) / 3) + 6rem); }
+  .row .col-2-of-4 {
+    width: calc( 2 * ((100% - 3 * 6rem) / 4) + 6rem); }
+  .row .col-3-of-4 {
+    width: calc( 3 * ((100% - 3 * 6rem) / 4) + 2 * 6rem); }

@@ -1,0 +1,40 @@
+.header {
+  /* fill 95% of the viewport leaving some space sine its 95vh */
+  height: 95vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url(../img/hero.jpg);
+  /* will try to fit/adapt the image into the box/viewport  */
+  background-size: cover;
+  /* top of image always stays the same/always in view */
+  background-position: top;
+
+  /* for cilpping half of the image in the given angle */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  position: relative;
+
+  &__logo-box {
+    /* will reference the position of the parent because it is relative, that's where the px start */
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+
+  &__logo {
+    /* width is figured out by browser */
+    height: 3.5rem;
+  }
+
+  &__text-box {
+    /* all listed below is to move to middle */
+    position: absolute;
+    top: 40%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
